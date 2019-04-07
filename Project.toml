@@ -1,0 +1,10 @@
+name = "OrbitalInsertion"
+uuid = "0487fce0-62de-5ce9-8e1c-fd95124d4539"
+authors = ["Jose Manuel <montilla_aero@protonmail.com>"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

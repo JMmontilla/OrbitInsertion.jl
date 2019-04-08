@@ -2,7 +2,12 @@ __precompile__()
 
 module OrbitalInsertion
 
-using DifferentialEquations
+using DifferentialEquations, ForwardDiff, DiffResults, Printf, LinearAlgebra, NLopt, Roots, Interpolations, Plots
+
+abstract type System end
+
+struct EMsystem <:System end
+struct SEsystem <:System end
 
 struct ProblemInfo{T<:Float64}
     mu  ::T
@@ -38,9 +43,21 @@ struct ProblemParameters{T<:Float64,J<:Int64,K<:Bool}
     neval   ::J
     col     ::K
 end
+mutable struct SystemInfo{T<:Float64}
+    mu  ::T
+    Rp  ::T
+    Rs  ::T
+    r12 ::T
+    m1  ::T
+    G   ::T
+end
 
-export search, createConstants, createPar
+export createConstants, createSystem, createPar, search, filterGlobalSol, point, plotSols
+export EMsystem, SEsystem
+export ProblemInfo, ProblemParameters, SystemInfo, ProblemParameters
 
 include("funcs_insert.jl")
+include("systems.jl")
+include("restrictions.jl")
 
 end # module
